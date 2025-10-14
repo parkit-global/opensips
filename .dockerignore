@@ -1,0 +1,37 @@
+# Git files
+.git
+.gitignore
+.github
+
+# Documentation
+*.md
+doc/
+
+# Build artifacts
+*.o
+*.so
+*.d
+*.il
+tmp/
+debian/
+packaging/
+
+# Editor files
+*.swp
+*~
+.*.swp
+.\#*
+
+# Docker files (don't copy into context recursively)
+Dockerfile
+.dockerignore
+docker/
+
+# Distribution files
+*.tar.gz
+*.tar.bz2
+*.patch
+
+# Config template (will be generated during build)
+Makefile.conf
+
