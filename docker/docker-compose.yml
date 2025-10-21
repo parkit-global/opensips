@@ -1,22 +1,30 @@
 services:
   opensips:
-    image: opensips:latest
     container_name: opensips
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      args:
+        OPENSIPS_CLI: true
+    command: opensips -F
+    environment:
+      - OPENSIPS_LOG_LEVEL=${OPENSIPS_LOG_LEVEL:-3}
+    env_file:
+      - ./config/.env
+    healthcheck:
+      test: opensips-cli -x mi sr_get_status core | grep -q 'running'
+      interval: 1s
+      retries: 10
+      timeout: 2s
+    restart: unless-stopped
+    networks:
+      - voip
+    # SIP port for external access
     ports:
       - "5060:5060/udp"
       - "5060:5060/tcp"
-      - "5061:5061/tcp"
-    volumes:
-      # Mount configuration directory (optional - uncomment to use custom config)
-      # - ./etc/opensips:/usr/local/etc/opensips
-      # Mount logs directory (optional)
-      - opensips-logs:/var/log/opensips
-    # Uncomment to run as non-root (requires config changes)
-    # user: opensips
-    restart: unless-stopped
-    # You can override the default command for debugging
-    # command: ["opensips", "-F", "-DD"]  # -DD for debug level 2
 
-volumes:
-  opensips-logs:
-
+networks:
+  voip:
+    name: opensips-voip
+    driver: bridge
