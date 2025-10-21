@@ -25,7 +25,6 @@ packaging/
 # Docker files (don't copy into context recursively)
 Dockerfile
 .dockerignore
-docker/
 
 # Distribution files
 *.tar.gz
