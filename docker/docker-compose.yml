@@ -1,30 +1,8 @@
 services:
   opensips:
-    container_name: opensips
+    image: parkit-global/opensips:latest
     build:
       context: ..
       dockerfile: docker/Dockerfile
       args:
         OPENSIPS_CLI: true
-    command: opensips -F
-    environment:
-      - OPENSIPS_LOG_LEVEL=${OPENSIPS_LOG_LEVEL:-3}
-    env_file:
-      - ./config/.env
-    healthcheck:
-      test: opensips-cli -x mi sr_get_status core | grep -q 'running'
-      interval: 1s
-      retries: 10
-      timeout: 2s
-    restart: unless-stopped
-    networks:
-      - voip
-    # SIP port for external access
-    ports:
-      - "5060:5060/udp"
-      - "5060:5060/tcp"
-
-networks:
-  voip:
-    name: opensips-voip
-    driver: bridge
