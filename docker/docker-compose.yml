@@ -1,6 +1,7 @@
 services:
   opensips:
     container_name: opensips
+    image: parkit-global/opensips:latest
     build:
       context: ..
       dockerfile: docker/Dockerfile
