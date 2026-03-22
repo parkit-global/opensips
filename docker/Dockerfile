@@ -84,7 +84,7 @@ RUN echo '#!/bin/bash' > /usr/local/bin/opensips-entrypoint.sh && \
     echo '' >> /usr/local/bin/opensips-entrypoint.sh && \
     echo '# Generate config from template with env substitution (only specific vars)' >> /usr/local/bin/opensips-entrypoint.sh && \
     echo 'echo "Generating config from template with env vars..."' >> /usr/local/bin/opensips-entrypoint.sh && \
-    echo 'envsubst '"'"'$OPENSIPS_MPATH $MI_PORT $B2B_SIP_PORT'"'"' < /usr/local/etc/opensips/opensips.cfg.template > /usr/local/etc/opensips/opensips.cfg' >> /usr/local/bin/opensips-entrypoint.sh && \
+    echo 'envsubst '"'"'$OPENSIPS_MPATH $MI_PORT $B2B_SIP_PORT $ADVERTISED_IP'"'"' < /usr/local/etc/opensips/opensips.cfg.template > /usr/local/etc/opensips/opensips.cfg' >> /usr/local/bin/opensips-entrypoint.sh && \
     echo '' >> /usr/local/bin/opensips-entrypoint.sh && \
     echo 'exec "$@"' >> /usr/local/bin/opensips-entrypoint.sh && \
     chmod +x /usr/local/bin/opensips-entrypoint.sh
